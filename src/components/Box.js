@@ -26,8 +26,9 @@ function Box(props) {
     if (clicked) {
       const width = props?.width;
       const height = props?.height;
-      setX(e.clientX - width / 1.5 + "px");
-      setY(e.clientY - height / 1.7 + "px");
+      console.log(width / 1.2, height / 1.8);
+      setX(e.clientX - width / 1.2 + "px");
+      setY(e.clientY - height / 1.8 + "px");
     }
   };
 
