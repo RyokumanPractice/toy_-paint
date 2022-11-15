@@ -4,7 +4,6 @@ import styled from "styled-components";
 const Body = styled.div`
   background-color: ${(props) => props.props.color};
   border-radius: ${(props) => props.props.borderRadius};
-  border: ${(props) => props.props.border};
   width: ${(props) => props.props.width + "px"};
   height: ${(props) => props.props.height + "px"};
   z-index: ${(props) => props.props.zIndex};
@@ -12,6 +11,10 @@ const Body = styled.div`
   left: ${(props) => props.X};
   top: ${(props) => props.Y};
   cursor: move;
+  background-image: ${(props) => `url(${props.props.image})`};
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: ${(props) => (props.clicked ? "red 2px solid" : "")};
 `;
 
 function Box(props) {
@@ -26,9 +29,8 @@ function Box(props) {
     if (clicked) {
       const width = props?.width;
       const height = props?.height;
-      console.log(width / 1.2, height / 1.8);
-      setX(e.clientX - width / 1.2 + "px");
-      setY(e.clientY - height / 1.8 + "px");
+      setX(e.clientX - width / 2 + "px");
+      setY(e.clientY - height / 2 + "px");
     }
   };
 
@@ -41,6 +43,7 @@ function Box(props) {
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
+      clicked={clicked}
     />
   );
 }

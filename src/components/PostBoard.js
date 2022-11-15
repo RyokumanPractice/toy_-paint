@@ -18,10 +18,11 @@ function PostBoard(props) {
         const width = Element?.width;
         const height = Element?.height;
         const color = Element?.color;
-        const zIndex = Element?.zIndex + 100;
+        const zIndex = Element?.zIndex + 10;
+        const image = Element?.image;
 
         if (type === "box") {
-          return <Box key={i} width={width} height={height} color={color} zIndex={zIndex}></Box>;
+          return <Box key={i} width={width} height={height} color={color} zIndex={zIndex} image={image}></Box>;
         } else if (type === "Container") {
           return <div key={i}></div>;
         } else {

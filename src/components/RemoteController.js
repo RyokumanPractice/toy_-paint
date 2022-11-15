@@ -13,6 +13,7 @@ const Body = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  z-index: 100;
 `;
 
 const Handle = styled.div`
@@ -25,6 +26,7 @@ const Handle = styled.div`
   align-items: center;
   flex-direction: column;
   cursor: move;
+  z-index: 100;
 `;
 
 function RemoteController(props) {
@@ -32,6 +34,7 @@ function RemoteController(props) {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [color, setColor] = useState();
+  const [image, setImgae] = useState();
   const [zIndex, setZIndex] = useState(0);
   const [X, setX] = useState();
   const [Y, setY] = useState();
@@ -50,9 +53,16 @@ function RemoteController(props) {
   const onHeightChange = (e) => setHeight(e?.target.value);
   const onColorChange = (e) => setColor(e?.target.value);
   const onZIndexChange = (e) => setZIndex(e?.target.value);
+  const onImageChange = (e) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setImgae(reader.result);
+    };
+  };
 
   const onClick = () => {
-    const temp = { type: "box", width: width, height: height, color: color, zIndex: zIndex };
+    const temp = { type: "box", width: width, height: height, color: color, zIndex: zIndex, image: image };
     props.setElements([...props?.elements, temp]);
   };
 
@@ -72,6 +82,7 @@ function RemoteController(props) {
       <input type="text" placeholder="height" onChange={onHeightChange} />
       <input type="text" placeholder="color" onChange={onColorChange} />
       <input type="text" placeholder="z-index" onChange={onZIndexChange} />
+      <input type="file" onChange={onImageChange} />
       <button onClick={onClick}>추가하기</button>
     </Body>
   );
