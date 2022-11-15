@@ -1,24 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import RemoteController from "./components/RemoteController";
+import PostBoard from "./components/PostBoard";
+import Container from "./components/Container";
+import { useState } from "react";
 
 function App() {
+  const [elements, setElements] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <PostBoard elements={elements} />
+      <RemoteController elements={elements} setElements={setElements} />
+    </Container>
   );
 }
 
