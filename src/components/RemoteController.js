@@ -38,6 +38,7 @@ function RemoteController(props) {
   const [zIndex, setZIndex] = useState(0);
   const [X, setX] = useState();
   const [Y, setY] = useState();
+  const [reader, setReader] = useState(new FileReader());
 
   const onMouseDown = () => setClicked(true);
   const onMouseUp = () => setClicked(false);
@@ -54,7 +55,6 @@ function RemoteController(props) {
   const onColorChange = (e) => setColor(e?.target.value);
   const onZIndexChange = (e) => setZIndex(e?.target.value);
   const onImageChange = (e) => {
-    const reader = new FileReader();
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = () => {
