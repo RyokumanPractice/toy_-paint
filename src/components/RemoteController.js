@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useState, forwardRef } from "react";
+import { useState, forwardRef, useEffect } from "react";
 import { v4 } from "uuid";
+import Typography from "./Typography";
 
 const Body = styled.div`
   width: 200px;
@@ -37,6 +38,7 @@ const Input = styled.input.attrs((props) => ({ type: props.type }))`
 
 function RemoteController(props, ref) {
   const [clicked, setClicked] = useState(false);
+  const [classes, setClasses] = useState([]);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [color, setColor] = useState();
@@ -84,14 +86,9 @@ function RemoteController(props, ref) {
     props.setElements([...props?.elements, temp]);
   };
 
-  const classes = ref.current?.className.split(" ");
-  const getClass = () => {
-    if (classes?.includes("container")) return "Container";
-    if (classes?.includes("box")) return "box";
-    if (classes?.includes("text")) return "text";
-    else return null;
-  };
-  const myClass = getClass();
+  useEffect(() => {
+    setClasses(ref.current?.className.split(" "));
+  }, [props.focus, ref]);
 
   return (
     <Body X={X} Y={Y} clicked={clicked}>
@@ -104,7 +101,14 @@ function RemoteController(props, ref) {
       >
         handle
       </Handle>
-      <p>{myClass}</p>
+      <Typography size="14px" margin="0 0 4px 0">
+        uuid
+      </Typography>
+      <Typography>{classes ? classes[3] : ""}</Typography>
+      <Typography size="14px" margin="0 0 4px 0">
+        type
+      </Typography>
+      <Typography>{classes ? classes[2] : ""}</Typography>
       <Input type="text" placeholder="width" onChange={onWidthChange} />
       <Input type="text" placeholder="height" onChange={onHeightChange} />
       <Input type="text" placeholder="color" onChange={onColorChange} />

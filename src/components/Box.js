@@ -2,7 +2,7 @@ import { useState, forwardRef } from "react";
 import styled from "styled-components";
 import Canvas from "./Canvas";
 
-const Body = styled.div.attrs((props) => ({ className: props.props.type }))`
+const Body = styled.div.attrs((props) => ({ className: props.props.type + " " + props.props.uuid }))`
   background-color: ${(props) => props.props.color};
   border-radius: ${(props) => props.props.borderRadius};
   width: ${(props) => props.props.width + "px"};
