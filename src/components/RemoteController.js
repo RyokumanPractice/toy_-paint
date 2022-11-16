@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
+import { v4 } from "uuid";
 
 const Body = styled.div`
   width: 200px;
@@ -34,7 +35,7 @@ const Input = styled.input.attrs((props) => ({ type: props.type }))`
   width: 160px;
 `;
 
-function RemoteController(props) {
+function RemoteController(props, ref) {
   const [clicked, setClicked] = useState(false);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
@@ -71,9 +72,26 @@ function RemoteController(props) {
   };
 
   const onClick = () => {
-    const temp = { type: "box", width: width, height: height, color: color, zIndex: zIndex, imageURL: imageURL };
+    const temp = {
+      uuid: v4(),
+      type: "box",
+      width: width,
+      height: height,
+      color: color,
+      zIndex: zIndex,
+      imageURL: imageURL,
+    };
     props.setElements([...props?.elements, temp]);
   };
+
+  const classes = ref.current?.className.split(" ");
+  const getClass = () => {
+    if (classes?.includes("container")) return "Container";
+    if (classes?.includes("box")) return "box";
+    if (classes?.includes("text")) return "text";
+    else return null;
+  };
+  const myClass = getClass();
 
   return (
     <Body X={X} Y={Y} clicked={clicked}>
@@ -86,7 +104,7 @@ function RemoteController(props) {
       >
         handle
       </Handle>
-
+      <p>{myClass}</p>
       <Input type="text" placeholder="width" onChange={onWidthChange} />
       <Input type="text" placeholder="height" onChange={onHeightChange} />
       <Input type="text" placeholder="color" onChange={onColorChange} />
@@ -97,4 +115,4 @@ function RemoteController(props) {
   );
 }
 
-export default RemoteController;
+export default forwardRef(RemoteController);
