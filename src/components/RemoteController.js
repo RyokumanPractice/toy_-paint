@@ -34,11 +34,11 @@ function RemoteController(props) {
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [color, setColor] = useState();
-  const [image, setImgae] = useState();
+  const [imageURL, setImageURL] = useState();
   const [zIndex, setZIndex] = useState(0);
   const [X, setX] = useState();
   const [Y, setY] = useState();
-  const [reader, setReader] = useState(new FileReader());
+  const [reader] = useState(new FileReader());
 
   const onMouseDown = () => setClicked(true);
   const onMouseUp = () => setClicked(false);
@@ -58,15 +58,15 @@ function RemoteController(props) {
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = () => {
-        setImgae(reader.result);
+        setImageURL(reader.result);
       };
     } else {
-      setImgae(null);
+      setImageURL(null);
     }
   };
 
   const onClick = () => {
-    const temp = { type: "box", width: width, height: height, color: color, zIndex: zIndex, image: image };
+    const temp = { type: "box", width: width, height: height, color: color, zIndex: zIndex, imageURL: imageURL };
     props.setElements([...props?.elements, temp]);
   };
 

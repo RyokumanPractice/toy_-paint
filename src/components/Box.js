@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import Canvas from "./Canvas";
 
 const Body = styled.div`
   background-color: ${(props) => props.props.color};
@@ -7,11 +8,9 @@ const Body = styled.div`
   width: ${(props) => props.props.width + "px"};
   height: ${(props) => props.props.height + "px"};
   z-index: ${(props) => props.props.zIndex};
+  transform: ${(props) => `translate(${props.X} ,${props.Y} )`};
   position: absolute;
-  left: ${(props) => props.X};
-  top: ${(props) => props.Y};
   cursor: move;
-  background-image: ${(props) => `url(${props.props.image})`};
   background-repeat: no-repeat;
   background-size: cover;
   border: ${(props) => (props.clicked ? "red 2px solid" : "")};
@@ -44,7 +43,9 @@ function Box(props) {
       onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
       clicked={clicked}
-    />
+    >
+      <Canvas props={props} />
+    </Body>
   );
 }
 
