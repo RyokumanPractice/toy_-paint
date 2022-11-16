@@ -29,6 +29,11 @@ const Handle = styled.div`
   z-index: 100;
 `;
 
+const Input = styled.input.attrs((props) => ({ type: props.type }))`
+  margin: ${(props) => (props.type === "file" ? "10px auto 10px 20px" : "10px auto")};
+  width: 160px;
+`;
+
 function RemoteController(props) {
   const [clicked, setClicked] = useState(false);
   const [width, setWidth] = useState(0);
@@ -82,11 +87,11 @@ function RemoteController(props) {
         handle
       </Handle>
 
-      <input type="text" placeholder="width" onChange={onWidthChange} />
-      <input type="text" placeholder="height" onChange={onHeightChange} />
-      <input type="text" placeholder="color" onChange={onColorChange} />
-      <input type="text" placeholder="z-index" onChange={onZIndexChange} />
-      <input type="file" onChange={onImageChange} />
+      <Input type="text" placeholder="width" onChange={onWidthChange} />
+      <Input type="text" placeholder="height" onChange={onHeightChange} />
+      <Input type="text" placeholder="color" onChange={onColorChange} />
+      <Input type="text" placeholder="z-index" onChange={onZIndexChange} />
+      <Input type="file" onChange={onImageChange} />
       <button onClick={onClick}>추가하기</button>
     </Body>
   );
