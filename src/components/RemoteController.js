@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { useState, forwardRef, useEffect } from "react";
 import { v4 } from "uuid";
 import Typography from "./Typography";
+import Container from "./Container";
 
 const Body = styled.div`
-  width: 200px;
-  height: 400px;
+  width: 300px;
+  height: 500px;
   background-color: ${(props) => (props.clicked ? "black" : "orange")};
   color: ${(props) => (props.clicked ? "white" : "black")};
   position: absolute;
@@ -22,7 +23,7 @@ const Handle = styled.div`
   background-color: ${(props) => (props.clicked ? "black" : "orange")};
   color: ${(props) => (props.clicked ? "white" : "black")};
   width: 30%;
-  height: 40px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +33,7 @@ const Handle = styled.div`
 `;
 
 const Input = styled.input.attrs((props) => ({ type: props.type }))`
-  margin: ${(props) => (props.type === "file" ? "10px auto 10px 20px" : "10px auto")};
+  margin: ${(props) => (props.type === "file" ? "10px auto 10px 70px" : "10px auto")};
   width: 160px;
 `;
 
@@ -44,6 +45,8 @@ function RemoteController(props, ref) {
   const [color, setColor] = useState();
   const [imageURL, setImageURL] = useState();
   const [zIndex, setZIndex] = useState(0);
+  const [border, setBorder] = useState();
+  const [borderRaduis, setborderRadius] = useState();
   const [X, setX] = useState();
   const [Y, setY] = useState();
   const [reader] = useState(new FileReader());
@@ -53,8 +56,8 @@ function RemoteController(props, ref) {
   const onMouseLeave = () => setClicked(false);
   const onMouseMove = (e) => {
     if (clicked) {
-      setX(e.clientX - 100 + "px");
-      setY(e.clientY - 20 + "px");
+      setX(e.clientX - 150 + "px");
+      setY(e.clientY - 25 + "px");
     }
   };
 
@@ -62,6 +65,8 @@ function RemoteController(props, ref) {
   const onHeightChange = (e) => setHeight(e?.target.value);
   const onColorChange = (e) => setColor(e?.target.value);
   const onZIndexChange = (e) => setZIndex(e?.target.value);
+  const onBorderChange = (e) => setBorder(e?.target.value);
+  const onBorderRadiusChange = (e) => setborderRadius(e?.target.value);
   const onImageChange = (e) => {
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
@@ -101,18 +106,28 @@ function RemoteController(props, ref) {
       >
         handle
       </Handle>
-      <Typography size="14px" margin="0 0 4px 0">
-        uuid
-      </Typography>
-      <Typography>{classes ? classes[3] : ""}</Typography>
-      <Typography size="14px" margin="0 0 4px 0">
-        type
-      </Typography>
-      <Typography>{classes ? classes[2] : ""}</Typography>
+      <Container direction="row" width="100%" marginTop="10px">
+        <Typography size="12px" margin={classes ? "0 10px 0 0" : "0 210px 0 0"}>
+          UUID
+        </Typography>
+        <Typography size="12px" margin={classes ? "" : "6px"}>
+          {classes ? classes[3] : ""}
+        </Typography>
+      </Container>
+      <Container direction="row" width="100%" marginTop="10px">
+        <Typography size="12px" margin={classes ? "0 10px 0 0" : "0 210px 0 0"}>
+          TYPE
+        </Typography>
+        <Typography size="12px" margin={classes ? "" : "6px"}>
+          {classes ? classes[2] : ""}
+        </Typography>
+      </Container>
       <Input type="text" placeholder="width" onChange={onWidthChange} />
       <Input type="text" placeholder="height" onChange={onHeightChange} />
       <Input type="text" placeholder="color" onChange={onColorChange} />
       <Input type="text" placeholder="z-index" onChange={onZIndexChange} />
+      <Input type="text" placeholder="border" onChange={onBorderChange} />
+      <Input type="text" placeholder="border-radius" onChange={onBorderRadiusChange} />
       <Input type="file" onChange={onImageChange} />
       <button onClick={onClick}>추가하기</button>
     </Body>

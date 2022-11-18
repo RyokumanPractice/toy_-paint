@@ -9,6 +9,11 @@ const Container = styled.div`
   background-color: ${(props) => props.color};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+  margin: ${(props) => props.margin};
+  margin-left: ${(props) => props.marginLeft};
+  margin-right: ${(props) => props.marginRight};
+  margin-top: ${(props) => props.marginTop};
+  margin-bottom: ${(props) => props.marginBottom};
 `;
 
 export default Container;
